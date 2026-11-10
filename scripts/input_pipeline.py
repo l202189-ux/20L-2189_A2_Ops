@@ -13,9 +13,8 @@ SEED = 42
 LABELS = {"Real": 0, "AI-generated": 1}
 
 
-def load_image(path):
-    # Use the same decoder as the audit so the accepted formats stay consistent.
-    with Image.open(path.numpy().decode("utf-8")) as image:
+def preprocess_image(source):
+    with Image.open(source) as image:
         image = ImageOps.exif_transpose(image).convert("RGB")
         image = ImageOps.pad(
             image,
@@ -24,6 +23,10 @@ def load_image(path):
             color="black",
         )
         return np.asarray(image, dtype=np.uint8)
+
+
+def load_image(path):
+    return preprocess_image(path.numpy().decode("utf-8"))
 
 
 def prepare_image(path, label):

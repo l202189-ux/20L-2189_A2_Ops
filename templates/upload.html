@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VisionGuard | Upload</title>
+    <style>
+        body { max-width: 36rem; margin: 4rem auto; padding: 0 1rem;
+               font: 1rem/1.6 Arial, sans-serif; color: #203142; }
+        label, input { display: block; margin-bottom: 0.75rem; }
+        button { padding: 0.6rem 1rem; background: #204c65; color: white;
+                 border: 0; border-radius: 4px; cursor: pointer; }
+        .error { color: #982d25; }
+    </style>
+</head>
+<body>
+    <main>
+<nav aria-label="Main menu">
+    <a href="{{ url_for('upload') }}">Upload</a> |
+    <a href="{{ url_for('history') }}">History</a>
+</nav>
+        <h1>VisionGuard</h1>
+        <form action="{{ url_for('result') }}" method="post"
+              enctype="multipart/form-data">
+            <label for="image">Choose a JPG or PNG image, up to 5 MiB.</label>
+            <input id="image" name="image" type="file" required>
+            <button type="submit">Classify image</button>
+        </form>
+        {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+    </main>
+</body>
+</html>

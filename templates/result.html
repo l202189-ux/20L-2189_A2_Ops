@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VisionGuard | Result</title>
+    <style>
+        body { max-width: 36rem; margin: 4rem auto; padding: 0 1rem;
+               font: 1rem/1.6 Arial, sans-serif; color: #203142; }
+        dt { font-weight: bold; }
+        dd { margin: 0 0 0.6rem; }
+        a { color: #204c65; }
+    </style>
+</head>
+<body>
+    <main>
+<nav aria-label="Main menu">
+    <a href="{{ url_for('upload') }}">Upload</a> |
+    <a href="{{ url_for('history') }}">History</a>
+</nav>
+        <h1>Prediction: {{ prediction.label }}</h1>
+        <p>{{ filename }}</p>
+        <dl>
+            <dt>AI-generated score</dt>
+            <dd>{{ "%.2f"|format(prediction.ai_score * 100) }}%</dd>
+            <dt>AI-generated decision threshold</dt>
+            <dd>{{ "%.2f"|format(prediction.threshold * 100) }}%</dd>
+            <dt>Score for the predicted class</dt>
+            <dd>{{ "%.2f"|format(prediction.class_score * 100) }}%</dd>
+            <dt>Model version</dt>
+            <dd>{{ prediction.model_version }}</dd>
+        </dl>
+        <p>The model can misclassify images. This result alone cannot establish
+           how an image was created.</p>
+        <a href="{{ url_for('upload') }}">Classify another image</a>
+    </main>
+</body>
+</html>

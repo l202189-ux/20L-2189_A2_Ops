@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VisionGuard | History</title>
+
+    <style>
+        body {
+            max-width: 72rem;
+            margin: 3rem auto;
+            padding: 0 1rem;
+            font: 1rem/1.5 Arial, sans-serif;
+            color: #203142;
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            color: #204c65;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 0.65rem;
+            border-bottom: 1px solid #d5dce0;
+            text-align: left;
+        }
+
+        th {
+            background: #edf3f6;
+        }
+
+        time {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <nav aria-label="Main menu">
+            <a href="{{ url_for('upload') }}">Upload</a>
+            <a href="{{ url_for('history') }}" aria-current="page">History</a>
+        </nav>
+
+        <h1>Prediction history</h1>
+
+        {% if records %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Time (PKT)</th>
+                        <th scope="col">Filename</th>
+                        <th scope="col">Verdict</th>
+                        <th scope="col">AI score</th>
+                        <th scope="col">Predicted class score</th>
+                        <th scope="col">Threshold</th>
+                        <th scope="col">Model version</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in records %}
+                    <tr>
+                        <td>{{ row.id }}</td>
+                        <td><time>{{ row.local_time | display_time }}</time></td>
+                        <td>{{ row.filename }}</td>
+                        <td>{{ row.label }}</td>
+                        <td>{{ "%.2f%%" | format(row.ai_score * 100) }}</td>
+                        <td>{{ "%.2f%%" | format(row.class_score * 100) }}</td>
+                        <td>{{ "%.2f%%" | format(row.decision_threshold * 100) }}</td>
+                        <td>{{ row.model_version }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No predictions have been recorded yet. Upload an image to get started.</p>
+        {% endif %}
+    </main>
+</body>
+</html>
