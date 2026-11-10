@@ -11,6 +11,7 @@
         dd { margin: 0 0 0.6rem; }
         a { color: #204c65; }
     </style>
+    {% include "_style.html" %}
 </head>
 <body>
     <main>
@@ -19,6 +20,7 @@
     <a href="{{ url_for('history') }}">History</a>
 </nav>
         <h1>Prediction: {{ prediction.label }}</h1>
+        <div class="result-panel">
         <p>{{ filename }}</p>
         <dl>
             <dt>AI-generated score</dt>
@@ -32,6 +34,7 @@
         </dl>
         <p>The model can misclassify images. This result alone cannot establish
            how an image was created.</p>
+           </div>
         <a href="{{ url_for('upload') }}">Classify another image</a>
     </main>
 </body>

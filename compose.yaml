@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: visionguard
+      POSTGRES_USER: visionguard
+      POSTGRES_PASSWORD: "${VISIONGUARD_DB_PASSWORD:?Set the database password}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U visionguard -d visionguard"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./models:/models:ro
+    environment:
+      PGHOST: db
+      PGPORT: "5432"
+      PGDATABASE: visionguard
+      PGUSER: visionguard
+      PGPASSWORD: "${VISIONGUARD_DB_PASSWORD:?Set the database password}"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/history', timeout=5).read()"]
+      start_period: 60s
+      interval: 15s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  postgres_data:

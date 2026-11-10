@@ -4,4 +4,7 @@ __pycache__/
 data/raw/
 *.zip
 mlruns/
-training_runs/
+training_runs//models/
+
+/models/
+/.env

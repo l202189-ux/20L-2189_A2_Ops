@@ -129,7 +129,7 @@ pyparsing==3.3.3
 python-dateutil==2.9.0.post0
 python-dotenv==1.2.4
 pytz==2026.6
-pywin32==312
+pywin32==312; sys_platform == "win32"
 PyYAML==6.0.3
 requests==2.34.2
 rich==15.0.0
@@ -150,7 +150,7 @@ tabulate==0.10.0
 tensorboard==2.16.2
 tensorboard-data-server==0.7.2
 tensorflow==2.16.2
-tensorflow-intel==2.16.2
+tensorflow-intel==2.16.2; sys_platform == "win32"
 tensorflow-io-gcs-filesystem==0.31.0
 termcolor==3.3.0
 threadpoolctl==3.8.0

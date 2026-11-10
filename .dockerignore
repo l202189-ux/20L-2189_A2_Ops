@@ -1,0 +1,14 @@
+.git
+.venv
+.env
+.env.*
+.dvc/cache
+__pycache__
+**/__pycache__
+data/raw
+training_runs
+models
+reports
+mlruns
+instance
+*.db
