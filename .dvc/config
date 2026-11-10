@@ -1,0 +1,4 @@
+[core]
+    remote = toy_storage
+['remote "toy_storage"']
+    url = C:\Users\Yousaf Younas\Desktop\Universities\FAST\Semester 13\MLOps\Assignment 2\dvc_toy_storage
